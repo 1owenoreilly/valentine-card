@@ -89,10 +89,10 @@
             <button class="yes" id="yesButton" onmouseover="moveYes()" onmousedown="moveYes()" ontouchstart="moveYes()">Yes</button>
             <button class="no" id="noButton">No</button>
         </div>
-        <p class="message" id="message">Yay! You are the best girlfriend ever! I Love You ANNNIE.❤️</p>
+        <p class="message" id="message">Yay! Frencstein must had not been evil after all. Probably just a bad programmer. You are the best girlfriend ever! I Love You ANNNIE.❤️</p>
         <img id="valentineImage" class="hidden-image" src="annienme.jpeg" alt="AnnieAndME">
         <div class="angry-emoji" id="angryEmoji" onclick="reset()">😠</div>
-        <p class="message" id="tryAgainMessage" style="display: none;">WHAT THE FLICK NUGGETS. IM TELLING CAPPY AND RUBE</p>
+        <p class="message" id="tryAgainMessage" style="display: none;">WHAT THE FLICK NUGGETS!!! NO??? IM TELLING CAPPY AND RUBE</p>
     </div>
 
     <script>
@@ -180,6 +180,57 @@
     
         // Start moving "Yes" initially
         yesMoveInterval = setInterval(moveYes, 1000);
+
+        setTimeout(() => {
+    let hackedMessage = document.createElement("h1");
+    hackedMessage.innerText = "Oh no! Evil Frencstein has hacked the system!";
+    hackedMessage.id = "hackedMessage";
+    hackedMessage.style.color = "red";
+    hackedMessage.style.textAlign = "center";
+    hackedMessage.style.position = "fixed";
+    hackedMessage.style.top = "20px";
+    hackedMessage.style.left = "50%";
+    hackedMessage.style.transform = "translateX(-50%)";
+    hackedMessage.style.fontSize = "24px";
+    hackedMessage.style.zIndex = "1000";
+    document.body.appendChild(hackedMessage);
+}, 5000);
+
+function reset() {
+    // Remove the hacked message if it exists
+    let hackedMessage = document.getElementById("hackedMessage");
+    if (hackedMessage) {
+        hackedMessage.remove();
+    }
+
+    document.getElementById("yesButton").style.transform = "translate(0, 0)";
+    document.getElementById("angryEmoji").style.display = "none";
+    document.getElementById("tryAgainMessage").style.display = "none";
+    document.getElementById("yesButton").style.display = "block";
+    document.getElementById("noButton").style.display = "block";
+    document.getElementById("message").style.display = "none";
+    document.getElementById("valentineImage").style.display = "none";
+    document.getElementById("valentineImage").style.opacity = "0";
+
+    const yesButton = document.getElementById("yesButton");
+    const noButton = document.getElementById("noButton");
+
+    // Stop "Yes" from moving
+    clearInterval(yesMoveInterval);
+    yesButton.style.transform = "translate(0, 0)"; 
+    yesButton.onmouseover = null;
+    yesButton.onmousedown = null;
+    yesButton.ontouchstart = null;
+    yesButton.style.pointerEvents = "auto";
+
+    // Make "No" move and unclickable
+    noButton.onmouseover = moveNo;
+    noButton.onmousedown = moveNo;
+    noButton.ontouchstart = moveNo;
+    noButton.style.pointerEvents = "none";
+}
+
+
     </script>
     
     
