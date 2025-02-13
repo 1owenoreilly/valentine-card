@@ -144,10 +144,18 @@
 
         // Reset to initial state
         function reset() {
+            // Reset the position of the "Yes" button
+            document.getElementById("yesButton").style.transform = "translate(0, 0)";
+
+            // Hide angry emoji and message
             document.getElementById("angryEmoji").style.display = "none";
             document.getElementById("tryAgainMessage").style.display = "none";
+
+            // Show buttons
             document.getElementById("yesButton").style.display = "block";
             document.getElementById("noButton").style.display = "block";
+
+            // Hide final message and photo
             document.getElementById("message").style.display = "none";
             document.getElementById("valentineImage").style.display = "none";
             document.getElementById("valentineImage").style.opacity = "0";
