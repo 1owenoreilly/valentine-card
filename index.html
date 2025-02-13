@@ -73,30 +73,44 @@
             margin-left: auto;
             margin-right: auto;
         }
+
+        .angry-emoji {
+            font-size: 50px;
+            cursor: pointer;
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div class="card">
         <div class="heart">❤️</div>
-        <h2>Will you be my Valentine AnnieBear?</h2>
+        <h2>Will you be my Valentine Annie?</h2>
         <div class="buttons">
-            <button class="yes" onclick="showLove()">Yes</button>
-            <button class="no" id="noButton" onmouseover="moveNo()" onmousedown="moveNo()" ontouchstart="moveNo()">No</button>
+            <button class="yes" id="yesButton" onmouseover="moveYes()" onmousedown="moveYes()" ontouchstart="moveYes()">Yes</button>
+            <button class="no" id="noButton">No</button>
         </div>
-        <p class="message" id="message">Yay! You are the best girlfriend ever! ❤️</p>
+        <p class="message" id="message">Yay! You are the best girlfriend ever! I Love You ANNNIE.❤️</p>
         <img id="valentineImage" class="hidden-image" src="annienme.jpeg" alt="AnnieAndME">
+        <div class="angry-emoji" id="angryEmoji" onclick="reset()">😠</div>
+        <p class="message" id="tryAgainMessage" style="display: none;">WHAT THE FLICK NUGGETS. IM TELLING CAPPY AND RUBE</p>
     </div>
 
     <script>
-        function showLove() {
-            document.getElementById("message").style.display = "block";
-            let img = document.getElementById("valentineImage");
-            img.style.display = "block"; /* Reveal the image */
-            setTimeout(() => {
-                img.style.opacity = "1"; 
-            }, 50);
+        // Initial state: Only "Yes" button moves
+        function moveYes() {
+            let yesButton = document.getElementById("yesButton");
+            let buttonsContainer = document.querySelector(".buttons");
+
+            let maxX = buttonsContainer.clientWidth / 2 - yesButton.clientWidth / 2 - 30;
+            let maxY = 40;
+
+            let randomX = (Math.random() - 0.5) * 2 * maxX;
+            let randomY = (Math.random() - 0.5) * 2 * maxY;
+
+            yesButton.style.transform = `translate(${randomX}px, ${randomY}px)`;
         }
 
+        // After reset: Only "No" button moves
         function moveNo() {
             let noButton = document.getElementById("noButton");
             let buttonsContainer = document.querySelector(".buttons");
@@ -109,6 +123,57 @@
 
             noButton.style.transform = `translate(${randomX}px, ${randomY}px)`;
         }
+
+        // Show the final message and photo
+        function showLove() {
+            document.getElementById("message").style.display = "block";
+            let img = document.getElementById("valentineImage");
+            img.style.display = "block"; /* Reveal the image */
+            setTimeout(() => {
+                img.style.opacity = "1"; 
+            }, 50);
+        }
+
+        // Show angry emoji and "Click to try again" message
+        function showAngryEmoji() {
+            document.getElementById("angryEmoji").style.display = "block";
+            document.getElementById("tryAgainMessage").style.display = "block";
+            document.getElementById("yesButton").style.display = "none";
+            document.getElementById("noButton").style.display = "none";
+        }
+
+        // Reset to initial state
+        function reset() {
+            document.getElementById("angryEmoji").style.display = "none";
+            document.getElementById("tryAgainMessage").style.display = "none";
+            document.getElementById("yesButton").style.display = "block";
+            document.getElementById("noButton").style.display = "block";
+            document.getElementById("message").style.display = "none";
+            document.getElementById("valentineImage").style.display = "none";
+            document.getElementById("valentineImage").style.opacity = "0";
+
+            // After reset, only "No" button moves
+            document.getElementById("noButton").onmouseover = moveNo;
+            document.getElementById("noButton").onmousedown = moveNo;
+            document.getElementById("noButton").ontouchstart = moveNo;
+            document.getElementById("yesButton").onmouseover = null;
+            document.getElementById("yesButton").onmousedown = null;
+            document.getElementById("yesButton").ontouchstart = null;
+        }
+
+        // Event listeners
+        document.getElementById("noButton").addEventListener("click", function() {
+            showAngryEmoji();
+        });
+
+        document.getElementById("yesButton").addEventListener("click", function() {
+            showLove();
+        });
+
+        // Initial setup: Only "Yes" button moves
+        document.getElementById("yesButton").onmouseover = moveYes;
+        document.getElementById("yesButton").onmousedown = moveYes;
+        document.getElementById("yesButton").ontouchstart = moveYes;
     </script>
 </body>
 </html>
